@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>chess</title>
+
+    <!--<meta name="viewport"-->
+    <!--content="width=device-width, initial-scale=1.0,-->
+    <!--minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+
+    <meta id="metaId" name="viewport" content="width=device-width"/>
+
+
+    <link rel="stylesheet" href="./resource/css/app.css"/>
+    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css">
+
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+<!--<div class="container-fluid">-->
+    <div class="gameDiv ">
+
+        <!--<div class="banner-top">-->
+        <!--&nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 8&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 9&nbsp; &nbsp; &nbsp;-->
+        <!--</div>-->
+
+        <canvas id="MapCanvas" width="540" height="600"></canvas>
+        <canvas id="PieceCanvas" width="540" height="600"></canvas>
+
+        <!--<div class="banner-down">-->
+        <!--&nbsp; &nbsp; &nbsp;九&nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 八&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 七&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 六&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; 五&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 四&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 三&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; 二&nbsp; &nbsp; &nbsp;-->
+        <!--&nbsp; &nbsp; 一&nbsp; &nbsp; &nbsp;-->
+        <!--</div>-->
+
+        <audio id="audio"/>
+
+    </div>
+
+    <div class="tableDiv ">
+        <h5><span>棋谱序列</span>棋谱序列</h5>
+
+        <div class="table">
+        </div>
+        <button onclick="returnStep()" class="btn btn-default">悔棋</button>
+        <button onclick="playAgain()" class="btn btn-default">重开</button>
+        <button onclick="giveUP()" class="btn btn-default">认输</button>
+    </div>
+<!--</div>-->
+<!--<script data-main="scripts/app" src="./lib/require.js"></script>-->
+<script src="scripts/setting.js"></script>
+<script src="scripts/util.js"></script>
+<script src="scripts/view/Map.js"></script>
+<script src="scripts/view/Piece.js"></script>
+<script src="scripts/controller/Controller.js"></script>
+
+<script>
+    //判断平台
+    function isPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    var isPhone = !isPC();
+    if (isPhone) {
+        //设备像素比
+        var dpr = document.documentElement.clientWidth / window.innerWidth;
+        //pc像素与手机的比
+        var totalWidth = 800;
+        var totalHeight = 500;
+        var phoneWidth = document.documentElement.clientWidth;
+        var phoneHeight = document.documentElement.clientHeight;
+
+        var scaleX = totalWidth / phoneWidth / dpr;
+        var scaleY = totalHeight / phoneHeight / dpr;
+
+        var MapCanvas = $('#MapCanvas');
+        var PieceCanvas = $('#PieceCanvas');
+        var gameDiv = $('.gameDiv');
+        var tableDiv = $('.tableDiv');
+        SizeScale(MapCanvas);
+        SizeScale(PieceCanvas);
+        SizeScale(gameDiv);
+        SizeScale(tableDiv);
+
+        function SizeScale(jqueryObj) {
+            jqueryObj.width(jqueryObj.width() / scaleX);
+            jqueryObj.height(jqueryObj.height() / scaleY);
+        }
+
+    }
+
+    //可以添加onresize监听事件，
+
+
+
+</script>
+</body>
+</html>
